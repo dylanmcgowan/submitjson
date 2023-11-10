@@ -37,15 +37,28 @@ export default class SubmitJSON {
     }
   }
 
-  async submit(data: Record<string, unknown>, options?: SubmitOptions | string, endpoint?: string) {
+  async submit(data: Record<string, unknown> | FormData | string, options?: SubmitOptions | string, endpoint?: string) {
     try {
-      // validate that data is an object
-      if (typeof data !== 'object')
-        throw new Error('param "data" must be a valid JSON object')
-
-      // make sure the object is valid JSON
-      JSON.stringify(data)
-
+      // **HANDLE DATA**
+      let d: Record<string, unknown>
+      if (data instanceof FormData) {
+        // validate form data first, ts error otherwise
+        JSON.stringify(Object.fromEntries(data))
+        d = Object.fromEntries(data)
+      }
+      else if (typeof data === 'string') {
+        // validate that string is valid json next
+        d = JSON.parse(data)
+      }
+      else if (typeof data === 'object') {
+        // finally make sure the object is valid
+        JSON.stringify(data)
+        d = data
+      }
+      else {
+        throw new TypeError('The first argument must be a valid JSON object, string, or FormData')
+      }
+      // **HANDLE OPTIONS**
       // if second param is a string assume it is an endpoint
       if (typeof options === 'string')
         endpoint = options
@@ -58,7 +71,7 @@ export default class SubmitJSON {
         throw new Error('👻 No endpoint defined. Add one to your client configuration or to this submit call.')
 
       // define the body to submit in a sec
-      const body: RequestBody = { data }
+      const body: RequestBody = { data: d }
 
       // define an empty options variable
       let o: SubmitOptions | undefined
