@@ -1,5 +1,11 @@
 # submitjson
 
+## 0.0.2
+
+### Patch Changes
+
+- 10c0981: update npm access config + data type on README
+
 ## 0.1.0
 
 ### Minor Changes
