@@ -1,5 +1,13 @@
 # submitjson
 
+## 0.1.0
+
+### Minor Changes
+
+- 5248572: ⚡️ submitjson client stabilizes
+  - Also ensure strings are a JSON object
+  - More readme updates
+
 ## 0.0.2
 
 ### Patch Changes
