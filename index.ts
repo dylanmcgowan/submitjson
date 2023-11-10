@@ -48,7 +48,12 @@ export default class SubmitJSON {
       }
       else if (typeof data === 'string') {
         // validate that string is valid json next
-        d = JSON.parse(data)
+        const s = JSON.parse(data)
+
+        if (typeof s !== 'object')
+          throw new Error(`The string you pass in must parse into an object e.g. { your: 'string' }`)
+
+        d = s
       }
       else if (typeof data === 'object') {
         // finally make sure the object is valid

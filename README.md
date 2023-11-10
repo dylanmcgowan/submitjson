@@ -1,5 +1,8 @@
 # submitjson
 
+![npm](https://img.shields.io/npm/v/submitjson)
+![npm package minimized gzipped size (select exports)](https://img.shields.io/bundlejs/size/submitjson)
+
 JavaScript client for [Submit JSON](https://www.submitjson.com) written in TypeScript. Works in modern browsers, as well as runtimes like Node.js v18+, Bun, Deno, and Edge Runtime.
 
 ## Quick start
@@ -34,6 +37,7 @@ console.log('Submission', data)
 - [API](#api)
   - [submit()](#submit)
 - [Links](#submit-json-links)
+- [License](#license)
 
 ## Configuration
 
@@ -54,6 +58,11 @@ console.log('Submission', data)
     submissionFormat?: 'raw' | 'pretty'
     submissionSound?: 'none' | 'ping'
     emailNotification?: boolean
+  }
+
+  class SubmitJSON {
+    constructor(config: SubmitJSONConfig)
+    submit(data, options, endpoint): Promise<Submission>
   }
   ```
 
@@ -81,7 +90,7 @@ console.log('Submission', data)
   POST your data to an endpoint and get notified in real time.
   
   `submit()` takes three arguments:
-    1. The data (must be a valid JSON object)
+    1. The data (must be a valid JSON object, JSON string, or FormData)
     2. Optional configuration to override the endpoint's default settings. If this argument is a `string` it is treated as the `endpoint` for submitting data
     3. An optional `endpoint`.
 
@@ -92,7 +101,7 @@ console.log('Submission', data)
     data: Record<string, unknown> | string | FormData,
     options?: SubmitOptions,
     endpoint?: string
-  ): Submission
+  ): Promise<Submission>
   ```
 
 - **Example with all configuration options**
@@ -136,6 +145,7 @@ console.log('Submission', data)
     endpoint: 'ZzZzZzZzZ',
   })
   // somewhere else in your code
+  const data = { name: 'Yo Yoerson', message: 'Yo' }
   await contactForm.submit(data)
   await userSignupNotification.submit(data)
   ```
@@ -145,3 +155,7 @@ console.log('Submission', data)
 - [📖 Official docs](https://www.submitjson.com/docs)
 - [🌐 API documentation (OpenAPI 3.1)](https://api.submitjson.com/v1/docs)
 - [✌️ Email us - support@submitjson.com](mailto:support@submitjson.com)
+
+## License
+
+MIT License © 2023 [Dylan McGowan](https://github.com/dylanmcgowan)
