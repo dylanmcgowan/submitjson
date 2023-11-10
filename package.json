@@ -1,7 +1,7 @@
 {
   "name": "submitjson",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "REST API client for submitjson.com",
   "author": "Dylan McGowan",
   "license": "MIT",
@@ -10,6 +10,9 @@
   "keywords": [],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup index.ts --format cjs,esm --dts",
     "lint": "eslint .",

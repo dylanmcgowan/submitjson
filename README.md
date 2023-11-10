@@ -89,7 +89,7 @@ console.log('Submission', data)
 
   ```ts
   function submit(
-    data: Record<string, unknown>,
+    data: Record<string, unknown> | string | FormData,
     options?: SubmitOptions,
     endpoint?: string
   ): Submission
