@@ -18,22 +18,22 @@ interface SubmitOptions {
 }
 
 type RequestOptions = components['schemas']['SubmissionInput']['options']
-type RequestBody = paths['/v1/endpoints/{endpoint_slug}']['post']['requestBody']['content']['application/json']
+type RequestBody = paths['/v1/endpoints/{endpointSlug}']['post']['requestBody']['content']['application/json']
 
 export default class SubmitJSON {
-  private api_key: string
-  private endpoint_slug: string | undefined
+  private apiKey: string
+  private endpointSlug: string | undefined
   private options: SubmitOptions | undefined
 
   constructor(config: SubmitJSONConfig) {
-    this.api_key = config.apiKey
-    this.endpoint_slug = config.endpoint
+    this.apiKey = config.apiKey
+    this.endpointSlug = config.endpoint
     this.options = config.options
   }
 
   private getHeaders() {
     return {
-      'X-API-Key': this.api_key,
+      'X-API-Key': this.apiKey,
     }
   }
 
@@ -51,7 +51,7 @@ export default class SubmitJSON {
         const s = JSON.parse(data)
 
         if (typeof s !== 'object')
-          throw new Error(`The string you pass in must parse into an object e.g. { your: 'string' }`)
+          throw new Error(`🕱 The string you pass in must parse into an object e.g. { your: 'string' }`)
 
         d = s
       }
@@ -61,7 +61,7 @@ export default class SubmitJSON {
         d = data
       }
       else {
-        throw new TypeError('The first argument must be a valid JSON object, string, or FormData')
+        throw new TypeError('🕱 The first argument must be a valid JSON object, string, or FormData')
       }
       // **HANDLE OPTIONS**
       // if second param is a string assume it is an endpoint
@@ -69,11 +69,11 @@ export default class SubmitJSON {
         endpoint = options
 
       // assign the endpoint slug to the passed in endpoint first, then the config second
-      const endpoint_slug = endpoint || this.endpoint_slug
+      const endpointSlug = endpoint || this.endpointSlug
 
       // if no endpoint slug throw error
-      if (endpoint_slug === undefined)
-        throw new Error('👻 No endpoint defined. Add one to your client configuration or to this submit call.')
+      if (endpointSlug === undefined)
+        throw new Error('🕱 No endpoint defined. Add one to your client configuration or to this submit call.')
 
       // define the body to submit in a sec
       const body: RequestBody = { data: d }
@@ -91,24 +91,20 @@ export default class SubmitJSON {
 
       // check to make sure the options are valid
       if (o) {
-        const requestOptions: RequestOptions = {}
-        // attach known properties to requestOptions
-        if (Object.prototype.hasOwnProperty.call(o, 'emailNotification'))
-          requestOptions.email_notification = o.emailNotification
-        if (Object.prototype.hasOwnProperty.call(o, 'submissionFormat'))
-          requestOptions.submission_format = o.submissionFormat
-        if (Object.prototype.hasOwnProperty.call(o, 'submissionSound'))
-          requestOptions.submission_sound = o.submissionSound
-        // ooh yea
-        if (Object.keys(requestOptions).length > 0)
-          body.options = requestOptions
+        // deletes any undefined keys
+        const { emailNotification, submissionFormat, submissionSound } = o
+        const options: RequestOptions = { emailNotification, submissionFormat, submissionSound }
+        Object.keys(options).forEach(key => options && options[key as keyof SubmitOptions] === undefined && delete options[key as keyof SubmitOptions])
+
+        if (Object.keys(options).length > 0)
+          body.options = options
       }
 
       // make the submission
-      const { data: submission, error } = await POST('/v1/endpoints/{endpoint_slug}', {
+      const { data: submission, error } = await POST('/v1/endpoints/{endpointSlug}', {
         headers: this.getHeaders(),
         params: {
-          path: { endpoint_slug },
+          path: { endpointSlug },
         },
         body,
       })

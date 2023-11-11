@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-  '/v1/endpoints/{endpoint_slug}': {
+  '/v1/endpoints/{endpointSlug}': {
     parameters: {
       query?: never
       header?: never
@@ -44,19 +44,19 @@ export interface components {
          * @example raw
          * @enum {string}
          */
-        submission_format?: 'raw' | 'pretty'
+        submissionFormat?: 'raw' | 'pretty'
         /**
          * @example ping
          * @enum {string}
          */
-        submission_sound?: 'none' | 'ping'
+        submissionSound?: 'none' | 'ping'
         /** @example false */
-        email_notification?: boolean
+        emailNotification?: boolean
       }
     }
     Submission: {
       /** Format: date-time */
-      created_at?: string
+      createdAt?: string
       /**
        * @example {
        *       "name": "Test Testerson",
@@ -66,31 +66,33 @@ export interface components {
        */
       data?: Record<string, never>
       /** @example false */
-      email_notification?: boolean
-      email_status?: null | string
+      emailNotification?: boolean
+      emailStatus?: null | string
       /** @example 12345 */
-      endpoint_id?: number
+      endpointId?: number
       /** @example Test Contact Form */
-      endpoint_name?: string
+      endpointName?: string
       /** @example XxJqpisK8 */
-      endpoint_slug?: string
+      endpointSlug?: string
       /** Format: date-time */
-      seen_at?: string | null
+      seenAt?: string | null
       /** @enum {string} */
-      submission_format?: 'raw' | 'pretty'
+      submissionFormat?: 'raw' | 'pretty'
       /** @example xxxx-xxxx-xxxx-xxx */
-      submission_id?: string
+      submissionId?: string
       /**
        * @example ping
        * @enum {string}
        */
-      submission_sound?: 'none' | 'ping'
+      submissionSound?: 'none' | 'ping'
       /** @example 12345 */
-      user_id?: number
+      userId?: number
     }
     ErrorResponse: {
       /** @example 🙈 */
       message?: string
+      /** @example 400 */
+      statusCode?: unknown
     }
   }
   responses: never
@@ -107,7 +109,7 @@ export interface operations {
       header?: never
       path: {
         /** @description the slug of the endpoint */
-        endpoint_slug: string
+        endpointSlug: string
       }
       cookie?: never
     }

@@ -18,7 +18,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "pnpm run build && changeset publish",
-    "typegen": "openapi-typescript http://localhost:4000/docs.json -o ./v1.d.ts",
+    "typegen": "openapi-typescript http://localhost:4000/v1/docs.json -o ./v1.d.ts",
     "test:ts": "tsc --noEmit"
   },
   "dependencies": {
