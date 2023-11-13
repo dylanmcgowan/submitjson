@@ -40,18 +40,22 @@ export interface components {
         [key: string]: unknown
       }
       options?: {
+        /** @example false */
+        emailNotification?: boolean
+        /** @example yo@yoerson.com */
+        emailReplyTo?: string
         /**
          * @example raw
          * @enum {string}
          */
         submissionFormat?: 'raw' | 'pretty'
+        /** @example yo@yoerson.com */
+        submissionRecipient?: string
         /**
          * @example ping
          * @enum {string}
          */
         submissionSound?: 'none' | 'ping'
-        /** @example false */
-        emailNotification?: boolean
       }
     }
     Submission: {
@@ -67,6 +71,8 @@ export interface components {
       data?: Record<string, never>
       /** @example false */
       emailNotification?: boolean
+      /** @example yo@yoerson.com */
+      emailReplyTo?: string
       emailStatus?: null | string
       /** @example 12345 */
       endpointId?: number
@@ -80,6 +86,8 @@ export interface components {
       submissionFormat?: 'raw' | 'pretty'
       /** @example xxxx-xxxx-xxxx-xxx */
       submissionId?: string
+      /** @example yo@yoerson.com */
+      submissionRecipient?: string
       /**
        * @example ping
        * @enum {string}

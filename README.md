@@ -5,7 +5,10 @@
 
 JavaScript client for [Submit JSON](https://www.submitjson.com) written in TypeScript. Works in modern browsers, as well as runtimes like Node.js v18+, Bun, Deno, and Edge Runtime.
 
+
 ## Quick start
+If you haven't already, [sign up for a Submit JSON account](https://www.submitjson.com/signup).
+
 Install the client with a package manager:
 
 ```shell
@@ -55,9 +58,11 @@ console.log('Submission', data)
   }
 
   interface SubmitOptions {
-    submissionFormat?: 'raw' | 'pretty'
-    submissionSound?: 'none' | 'ping'
     emailNotification?: boolean
+    emailReplyTo?: string
+    submissionFormat?: 'raw' | 'pretty'
+    submissionRecipient?: string
+    submissionSound?: 'none' | 'ping'
   }
 
   class SubmitJSON {
@@ -120,8 +125,10 @@ console.log('Submission', data)
     powerLevel: 9001,
   }, {
     emailNotification: true,
+    emailReplyTo: 'diff@differson.com',
     submissionFormat: 'pretty',
     submissionSound: 'ping',
+    submissionRecipient: 'yo@yoerson.com',
   }, 'YyYyYyYyY') // this overrides the endpoint set in the configuration
 
   console.log('Submission', data)
@@ -153,6 +160,7 @@ console.log('Submission', data)
 ## Submit JSON Links
 - [📦 submitjson.com](https://www.submitjson.com)
 - [📖 Official docs](https://www.submitjson.com/docs)
+- [⚡️ Full examples](https://www.submitjson.com/docs/examples)
 - [🌐 API documentation (OpenAPI 3.1)](https://api.submitjson.com/v1/docs)
 - [✌️ Email us - support@submitjson.com](mailto:support@submitjson.com)
 

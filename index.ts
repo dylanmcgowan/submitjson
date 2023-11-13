@@ -13,8 +13,10 @@ interface SubmitJSONConfig {
 
 interface SubmitOptions {
   emailNotification?: boolean
+  emailReplyTo?: string
   submissionFormat?: 'raw' | 'pretty'
   submissionSound?: 'none' | 'ping'
+  submissionRecipient?: string
 }
 
 type RequestOptions = components['schemas']['SubmissionInput']['options']
