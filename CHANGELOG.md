@@ -1,5 +1,12 @@
 # submitjson
 
+## 0.3.0
+
+### Minor Changes
+
+- e9c8892: adds emailReplyTo to SubmitOptions
+- e9c8892: adds submissionRecipient to Submit Options
+
 ## 0.2.0
 
 ### Minor Changes
