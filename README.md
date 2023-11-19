@@ -1,6 +1,6 @@
 # submitjson
 
-![npm](https://img.shields.io/npm/v/submitjson)
+![npm](https://img.shields.io/npm/v/submitjson?color=%2384cc16)
 ![npm package minimized gzipped size (select exports)](https://img.shields.io/bundlejs/size/submitjson)
 
 JavaScript client for [Submit JSON](https://www.submitjson.com) written in TypeScript. Works in modern browsers, as well as runtimes like Node.js v18+, Bun, Deno, and Edge Runtime.

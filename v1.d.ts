@@ -55,7 +55,7 @@ export interface components {
          * @example ping
          * @enum {string}
          */
-        submissionSound?: 'none' | 'ping'
+        submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
       }
     }
     Submission: {

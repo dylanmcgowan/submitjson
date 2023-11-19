@@ -15,7 +15,7 @@ interface SubmitOptions {
   emailNotification?: boolean
   emailReplyTo?: string
   submissionFormat?: 'raw' | 'pretty'
-  submissionSound?: 'none' | 'ping'
+  submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
   submissionRecipient?: string
 }
 
