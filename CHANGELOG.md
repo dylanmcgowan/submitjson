@@ -1,5 +1,11 @@
 # submitjson
 
+## 0.4.0
+
+### Minor Changes
+
+- 552100b: Adds 10 new submission sounds
+
 ## 0.3.0
 
 ### Minor Changes
