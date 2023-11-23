@@ -62,7 +62,7 @@ console.log('Submission', data)
     emailReplyTo?: string
     submissionFormat?: 'raw' | 'pretty'
     submissionRecipient?: string
-    submissionSound?: 'none' | 'ping'
+    submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
   }
 
   class SubmitJSON {
