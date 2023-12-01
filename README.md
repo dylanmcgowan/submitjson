@@ -162,6 +162,7 @@ console.log('Submission', data)
 - [📖 Official docs](https://www.submitjson.com/docs)
 - [⚡️ Full examples](https://www.submitjson.com/docs/examples)
 - [🌐 API documentation (OpenAPI 3.1)](https://api.submitjson.com/v1/docs)
+- [👾 Discord](https://discord.gg/CTcKzgC9hz)
 - [✌️ Email us - support@submitjson.com](mailto:support@submitjson.com)
 
 ## License
