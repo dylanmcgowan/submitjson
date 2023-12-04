@@ -36,6 +36,7 @@ export default class SubmitJSON {
   private getHeaders() {
     return {
       'X-API-Key': this.apiKey,
+      'Access-Control-Allow-Origin': '*',
     }
   }
 
