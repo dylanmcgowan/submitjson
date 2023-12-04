@@ -1,5 +1,11 @@
 # submitjson
 
+## 0.4.1
+
+### Patch Changes
+
+- 1cba9e6: Adds cors header to request + update docs
+
 ## 0.4.0
 
 ### Minor Changes
