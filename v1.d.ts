@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-  '/v1/endpoints/{endpointSlug}': {
+  '/v1/submit/{endpointSlug}': {
     parameters: {
       query?: never
       header?: never
@@ -31,9 +31,9 @@ export interface components {
     SubmissionInput: {
       /**
        * @example {
-       *       "name": "Test Testerson",
-       *       "email": "test@testerson.com",
-       *       "message": "Greetings"
+       *       "name": "Yo Yoerson",
+       *       "email": "yo@yoerson.com",
+       *       "message": "Yo"
        *     }
        */
       data: {
@@ -63,9 +63,9 @@ export interface components {
       createdAt?: string
       /**
        * @example {
-       *       "name": "Test Testerson",
-       *       "email": "test@testerson.com",
-       *       "message": "Greetings"
+       *       "name": "Yo Yoerson",
+       *       "email": "yo@yoerson.com",
+       *       "message": "Yos"
        *     }
        */
       data?: Record<string, never>
@@ -116,7 +116,7 @@ export interface operations {
       query?: never
       header?: never
       path: {
-        /** @description the slug of the endpoint */
+        /** @description The slug of the endpoint */
         endpointSlug: string
       }
       cookie?: never

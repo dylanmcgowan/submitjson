@@ -20,7 +20,7 @@ interface SubmitOptions {
 }
 
 type RequestOptions = components['schemas']['SubmissionInput']['options']
-type RequestBody = paths['/v1/endpoints/{endpointSlug}']['post']['requestBody']['content']['application/json']
+type RequestBody = paths['/v1/submit/{endpointSlug}']['post']['requestBody']['content']['application/json']
 
 export default class SubmitJSON {
   private apiKey: string
@@ -36,7 +36,6 @@ export default class SubmitJSON {
   private getHeaders() {
     return {
       'X-API-Key': this.apiKey,
-      'Access-Control-Allow-Origin': '*',
     }
   }
 
@@ -104,7 +103,7 @@ export default class SubmitJSON {
       }
 
       // make the submission
-      const { data: submission, error } = await POST('/v1/endpoints/{endpointSlug}', {
+      const { data: submission, error } = await POST('/v1/submit/{endpointSlug}', {
         headers: this.getHeaders(),
         params: {
           path: { endpointSlug },

@@ -2,12 +2,11 @@
   "name": "submitjson",
   "type": "module",
   "version": "0.4.1",
-  "description": "REST API client for submitjson.com",
+  "description": "JavaScript client for Submit JSON (submitjson.com)",
   "author": "Dylan McGowan",
   "license": "MIT",
   "homepage": "https://www.submitjson.com",
   "repository": "https://github.com/dylanmcgowan/submitjson",
-  "keywords": [],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
@@ -29,8 +28,8 @@
     "@changesets/cli": "^2.26.2",
     "@types/node": "^20.9.0",
     "eslint": "^8.53.0",
-    "openapi-typescript": "7.0.0-next.2",
-    "tsup": "^7.2.0",
+    "openapi-typescript": "7.0.0-next.5",
+    "tsup": "^8.0.1",
     "typescript": "^5.2.2"
   }
 }
