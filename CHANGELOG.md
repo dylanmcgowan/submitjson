@@ -1,5 +1,11 @@
 # submitjson
 
+## 0.5.0
+
+### Minor Changes
+
+- 68a276c: update submit POST url from /endpoints/:endpointSlug to /submit/:endpointSlug
+
 ## 0.4.1
 
 ### Patch Changes
