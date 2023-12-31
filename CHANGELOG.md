@@ -1,5 +1,11 @@
 # submitjson
 
+## 0.5.1
+
+### Patch Changes
+
+- 736d776: fix emailReplyTo and submissionRecipient behavior
+
 ## 0.5.0
 
 ### Minor Changes
