@@ -94,8 +94,8 @@ export default class SubmitJSON {
       // check to make sure the options are valid
       if (o) {
         // deletes any undefined keys
-        const { emailNotification, submissionFormat, submissionSound } = o
-        const options: RequestOptions = { emailNotification, submissionFormat, submissionSound }
+        const { emailNotification, submissionFormat, submissionSound, emailReplyTo, submissionRecipient } = o
+        const options: RequestOptions = { emailNotification, submissionFormat, submissionSound, emailReplyTo, submissionRecipient }
         Object.keys(options).forEach(key => options && options[key as keyof SubmitOptions] === undefined && delete options[key as keyof SubmitOptions])
 
         if (Object.keys(options).length > 0)
