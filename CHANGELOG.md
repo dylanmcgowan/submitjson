@@ -1,5 +1,14 @@
 # submitjson
 
+## 0.6.0
+
+### Minor Changes
+
+- df5f2f8: Email notification enhancements
+  - You can now customize the email notification subject line with the `emailSubject` option
+  - You can now remove Submit JSON branding with the `emailBranding` option
+  - `submissionRecipient` renamed to `emailTo`
+
 ## 0.5.1
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "name": "submitjson",
   "type": "module",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "JavaScript client for Submit JSON (submitjson.com)",
   "author": "Dylan McGowan",
   "license": "MIT",
