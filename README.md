@@ -59,9 +59,11 @@ console.log('Submission', data)
 
   interface SubmitOptions {
     emailNotification?: boolean
+    emailTo?: string
+    emailSubject?: string
     emailReplyTo?: string
+    emailBranding?: boolean
     submissionFormat?: 'raw' | 'pretty'
-    submissionRecipient?: string
     submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
   }
 
@@ -125,10 +127,12 @@ console.log('Submission', data)
     powerLevel: 9001,
   }, {
     emailNotification: true,
+    emailTo: 'yo@yoerson.com',
     emailReplyTo: 'diff@differson.com',
+    emailBranding: false,
+    emailSubject: 'My custom subject line',
     submissionFormat: 'pretty',
     submissionSound: 'ping',
-    submissionRecipient: 'yo@yoerson.com',
   }, 'YyYyYyYyY') // this overrides the endpoint set in the configuration
 
   console.log('Submission', data)

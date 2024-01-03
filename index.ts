@@ -13,10 +13,12 @@ interface SubmitJSONConfig {
 
 interface SubmitOptions {
   emailNotification?: boolean
+  emailTo?: string
+  emailSubject?: string
   emailReplyTo?: string
+  emailBranding?: boolean
   submissionFormat?: 'raw' | 'pretty'
   submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
-  submissionRecipient?: string
 }
 
 type RequestOptions = components['schemas']['SubmissionInput']['options']
@@ -53,7 +55,7 @@ export default class SubmitJSON {
         const s = JSON.parse(data)
 
         if (typeof s !== 'object')
-          throw new Error(`🕱 The string you pass in must parse into an object e.g. { your: 'string' }`)
+          throw new Error(`☠️ The string you pass in must parse into a valid JSON object e.g. { your: 'string' }`)
 
         d = s
       }
@@ -63,7 +65,7 @@ export default class SubmitJSON {
         d = data
       }
       else {
-        throw new TypeError('🕱 The first argument must be a valid JSON object, string, or FormData')
+        throw new TypeError('☠️ The first argument must be a valid JSON object, string, or FormData')
       }
       // **HANDLE OPTIONS**
       // if second param is a string assume it is an endpoint
@@ -75,7 +77,7 @@ export default class SubmitJSON {
 
       // if no endpoint slug throw error
       if (endpointSlug === undefined)
-        throw new Error('🕱 No endpoint defined. Add one to your client configuration or to this submit call.')
+        throw new Error('☠️ No endpoint defined. Add one to your client configuration or to this submit call.')
 
       // define the body to submit in a sec
       const body: RequestBody = { data: d }
@@ -94,8 +96,8 @@ export default class SubmitJSON {
       // check to make sure the options are valid
       if (o) {
         // deletes any undefined keys
-        const { emailNotification, submissionFormat, submissionSound, emailReplyTo, submissionRecipient } = o
-        const options: RequestOptions = { emailNotification, submissionFormat, submissionSound, emailReplyTo, submissionRecipient }
+        const { emailNotification, submissionFormat, submissionSound, emailReplyTo, emailTo, emailSubject, emailBranding } = o
+        const options: RequestOptions = { emailNotification, submissionFormat, submissionSound, emailReplyTo, emailTo, emailBranding, emailSubject }
         Object.keys(options).forEach(key => options && options[key as keyof SubmitOptions] === undefined && delete options[key as keyof SubmitOptions])
 
         if (Object.keys(options).length > 0)
