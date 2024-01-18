@@ -15,7 +15,7 @@ export interface paths {
     put?: never
     /**
      * Submit your data to an endpoint
-     * @description Submit your data bb
+     * @description Submit JSON and get notified in real-time
      */
     post: operations['submit']
     delete?: never
@@ -30,7 +30,7 @@ export interface components {
   schemas: {
     SubmissionInput: {
       /**
-       * @description The data to submit, needs to be a valid JSON object
+       * @description The data to submit, must be a valid JSON object
        * @example {
        *       "name": "Yo Yoerson",
        *       "email": "yo@yoerson.com",
@@ -117,13 +117,14 @@ export interface components {
       submissionFormat?: 'raw' | 'pretty'
       /** @example xxxx-xxxx-xxxx-xxx */
       submissionId?: string
-      /**
-       * @example ping
-       * @enum {string}
-       */
-      submissionSound?: 'none' | 'ping'
+      /** @example ping */
+      submissionSound?: string
       /** @example 12345 */
       userId?: number
+      /** @enum {string|null} */
+      webhookStatus?: 'success' | 'partial-success' | 'error'
+      /** @enum {string|null} */
+      zapierStatus?: 'pending' | 'success' | 'error'
     }
     ErrorResponse: {
       /** @example 🙈 */

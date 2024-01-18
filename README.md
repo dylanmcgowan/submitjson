@@ -63,7 +63,7 @@ console.log('Submission', data)
     emailSubject?: string
     emailReplyTo?: string
     emailBranding?: boolean
-    submissionFormat?: 'raw' | 'pretty'
+    submissionFormat?: 'pretty' | 'raw'
     submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
   }
 
@@ -162,13 +162,13 @@ console.log('Submission', data)
   ```
 
 ## Submit JSON Links
-- [📦 submitjson.com](https://www.submitjson.com)
-- [📖 Official docs](https://www.submitjson.com/docs)
-- [⚡️ Full examples](https://www.submitjson.com/docs/examples)
-- [🌐 API documentation (OpenAPI 3.1)](https://api.submitjson.com/v1/docs)
-- [👾 Discord](https://discord.gg/CTcKzgC9hz)
-- [✌️ Email us - support@submitjson.com](mailto:support@submitjson.com)
+- [🚛 submitjson.com](https://www.submitjson.com)
+- [📗 Official docs](https://www.submitjson.com/docs)
+- [🧪 Full examples](https://www.submitjson.com/docs/examples)
+- [🟢 API documentation (OpenAPI 3.1)](https://api.submitjson.com/v1/docs)
+- [🍵 Discord](https://discord.gg/CTcKzgC9hz)
+- [🐢 Email us - support@submitjson.com](mailto:support@submitjson.com)
 
 ## License
 
-MIT License © 2023 [Dylan McGowan](https://github.com/dylanmcgowan)
+MIT License © 2023 [Submit JSON](https://www.submitjson.com)
