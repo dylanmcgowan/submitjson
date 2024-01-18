@@ -1,5 +1,11 @@
 # submitjson
 
+## 0.7.0
+
+### Minor Changes
+
+- 69f04a2: Adds `webhookStatus` and `zapierStatus` to the submission response
+
 ## 0.6.0
 
 ### Minor Changes
