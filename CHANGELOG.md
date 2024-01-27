@@ -1,5 +1,11 @@
 # submitjson
 
+## 0.8.0
+
+### Minor Changes
+
+- c8ff060: 🤖 adds CAPTCHA support - reCAPTCHA, Cloudflare Turnstile, hCaptcha
+
 ## 0.7.0
 
 ### Minor Changes
