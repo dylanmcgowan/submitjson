@@ -19,6 +19,8 @@ interface SubmitOptions {
   emailBranding?: boolean
   submissionFormat?: 'raw' | 'pretty'
   submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
+  recaptchaToken?: string
+  turnstileToken?: string
 }
 
 type RequestOptions = components['schemas']['SubmissionInput']['options']

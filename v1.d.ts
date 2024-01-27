@@ -80,6 +80,21 @@ export interface components {
          * @enum {string}
          */
         submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
+        /**
+         * @description Pass a reCAPTCHA response token along with the submission
+         * @example xxxxxxxxxxxxx
+         */
+        recaptchaToken?: string
+        /**
+         * @description Pass a Cloudflare Turnstile response token along with the submission
+         * @example xxxxxxxxxxxxx
+         */
+        turnstileToken?: string
+        /**
+         * @description Pass a hCaptcha response token along with the submission
+         * @example xxxxxxxxxxxxx
+         */
+        hcaptchaToken?: string
       }
     }
     Submission: {
@@ -113,6 +128,15 @@ export interface components {
       endpointSlug?: string
       /** Format: date-time */
       seenAt?: string | null
+      /**
+       * @example true
+       * @enum {string|null}
+       */
+      securityCaptcha?: 'hcaptcha' | 'recaptcha' | 'turnstile'
+      /** @example true */
+      securityCors?: boolean
+      /** @example false */
+      securityHoneypot?: boolean
       /** @enum {string} */
       submissionFormat?: 'raw' | 'pretty'
       /** @example xxxx-xxxx-xxxx-xxx */

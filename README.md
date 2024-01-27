@@ -65,6 +65,9 @@ console.log('Submission', data)
     emailBranding?: boolean
     submissionFormat?: 'pretty' | 'raw'
     submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
+    recaptchaToken?: string
+    turnstileToken?: string
+    hcaptchaToken?: string
   }
 
   class SubmitJSON {
@@ -133,7 +136,8 @@ console.log('Submission', data)
     emailSubject: 'My custom subject line',
     submissionFormat: 'pretty',
     submissionSound: 'ping',
-  }, 'YyYyYyYyY') // this overrides the endpoint set in the configuration
+    recaptchaToken: 'xxxxxxxxxxx'
+  }, 'YyYyYyYyY') // overrides the endpoint set in the configuration
 
   console.log('Submission', data)
   ```
