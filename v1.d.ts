@@ -120,8 +120,8 @@ export interface components {
       emailStatus?: string | null
       /** @example Endpoint name {xxxyyzz} */
       emailSubject?: string
-      /** @example 12345 */
-      endpointId?: number
+      /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
+      endpointId?: string
       /** @example Test Contact Form */
       endpointName?: string
       /** @example XxJqpisK8 */
@@ -139,12 +139,12 @@ export interface components {
       securityHoneypot?: boolean
       /** @enum {string} */
       submissionFormat?: 'raw' | 'pretty'
-      /** @example xxxx-xxxx-xxxx-xxx */
+      /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
       submissionId?: string
       /** @example ping */
       submissionSound?: string
-      /** @example 12345 */
-      userId?: number
+      /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
+      userId?: string
       /** @enum {string|null} */
       webhookStatus?: 'success' | 'partial-success' | 'error'
       /** @enum {string|null} */
