@@ -1,5 +1,11 @@
 # submitjson
 
+## 0.8.1
+
+### Patch Changes
+
+- fec3dcb: change submission response ids from type number > string
+
 ## 0.8.0
 
 ### Minor Changes
