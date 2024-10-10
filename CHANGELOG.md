@@ -1,5 +1,13 @@
 # submitjson
 
+## 0.9.0
+
+### Minor Changes
+
+- bcf5971: Adds support for Slack and Discord integrations.
+
+  New fields `discordStatus`, `discordChannel`, `slackChannel`, and `slackStatus` were added to the submission response.
+
 ## 0.8.1
 
 ### Patch Changes
