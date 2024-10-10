@@ -109,6 +109,10 @@ export interface components {
        *     }
        */
       data?: Record<string, never>
+      /** @example #notifications - Your Server */
+      discordChannel?: string | null
+      /** @enum {string|null} */
+      discordStatus?: 'pending' | 'success' | 'error' | 'error-char-limit'
       /** @example true */
       emailBranding?: boolean
       /** @example false */
@@ -137,6 +141,10 @@ export interface components {
       securityCors?: boolean
       /** @example false */
       securityHoneypot?: boolean
+      /** @example null */
+      slackChannel?: string
+      /** @enum {string|null} */
+      slackStatus?: 'pending' | 'success' | 'error'
       /** @enum {string} */
       submissionFormat?: 'raw' | 'pretty'
       /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
