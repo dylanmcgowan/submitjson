@@ -1,5 +1,15 @@
 # submitjson
 
+## 0.10.0
+
+### Minor Changes
+
+- 017f52b: Adds support for customizing the "From" name of the notification email.
+
+  A new property `emailFromName` was added to the submission options.
+
+  This functionality is available on Growth and Pro plans.
+
 ## 0.9.0
 
 ### Minor Changes
