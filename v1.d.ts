@@ -59,12 +59,17 @@ export interface components {
          */
         emailReplyTo?: string
         /**
-         * @description Change the default email notification subject. Available on paid plans.
+         * @description Change the default email notification subject. Available on Growth & Pro plans.
          * @example My custom email subject
          */
         emailSubject?: string
         /**
-         * @description Remove Submit JSON branding from the email notification. Available on paid plans.
+         * @description Change the default email notification from name. Available on Growth & Pro plans.
+         * @example Your Business
+         */
+        emailFromName?: string
+        /**
+         * @description Remove Submit JSON branding from the email notification. Available on Growth & Pro plans.
          * @example true
          */
         emailBranding?: boolean
@@ -81,17 +86,17 @@ export interface components {
          */
         submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
         /**
-         * @description Pass a reCAPTCHA response token along with the submission
+         * @description Pass a reCAPTCHA response token along with the submission. Available on all paid plans.
          * @example xxxxxxxxxxxxx
          */
         recaptchaToken?: string
         /**
-         * @description Pass a Cloudflare Turnstile response token along with the submission
+         * @description Pass a Cloudflare Turnstile response token along with the submission. Available on all paid plans.
          * @example xxxxxxxxxxxxx
          */
         turnstileToken?: string
         /**
-         * @description Pass a hCaptcha response token along with the submission
+         * @description Pass a hCaptcha response token along with the submission. Available on all paid plans.
          * @example xxxxxxxxxxxxx
          */
         hcaptchaToken?: string
@@ -124,6 +129,8 @@ export interface components {
       emailStatus?: string | null
       /** @example Endpoint name {xxxyyzz} */
       emailSubject?: string
+      /** @example Your client's business */
+      emailFromName?: string
       /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
       endpointId?: string
       /** @example Test Contact Form */

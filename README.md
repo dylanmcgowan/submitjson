@@ -60,9 +60,10 @@ console.log('Submission', data)
   interface SubmitOptions {
     emailNotification?: boolean
     emailTo?: string
-    emailSubject?: string
     emailReplyTo?: string
     emailBranding?: boolean
+    emailSubject?: string
+    emailFromName?: string
     submissionFormat?: 'pretty' | 'raw'
     submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
     recaptchaToken?: string
@@ -134,6 +135,7 @@ console.log('Submission', data)
     emailReplyTo: 'diff@differson.com',
     emailBranding: false,
     emailSubject: 'My custom subject line',
+    emailFromName: 'My custom from name',
     submissionFormat: 'pretty',
     submissionSound: 'ping',
     recaptchaToken: 'xxxxxxxxxxx'
