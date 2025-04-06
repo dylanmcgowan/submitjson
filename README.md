@@ -69,6 +69,9 @@ console.log('Submission', data)
     recaptchaToken?: string
     turnstileToken?: string
     hcaptchaToken?: string
+    discordNotification?: boolean
+    slackNotification?: boolean
+    telegramNotification?: boolean
   }
 
   class SubmitJSON {

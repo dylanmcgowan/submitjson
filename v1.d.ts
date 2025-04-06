@@ -100,6 +100,21 @@ export interface components {
          * @example xxxxxxxxxxxxx
          */
         hcaptchaToken?: string
+        /**
+         * @description Send a Discord notification. Endpoint must be integrated with Discord. Available on Growth & Pro plans.
+         * @example false
+         */
+        discordNotification?: boolean
+        /**
+         * @description Send a Slack notification. Endpoint must be integrated with Slack. Available on Growth & Pro plans.
+         * @example false
+         */
+        slackNotification?: boolean
+        /**
+         * @description Send a Telegram notification. Endpoint must be connected to Telegram. Available on Growth & Pro plans.
+         * @example false
+         */
+        telegramNotification?: boolean
       }
     }
     Submission: {
@@ -158,6 +173,10 @@ export interface components {
       submissionId?: string
       /** @example ping */
       submissionSound?: string
+      /** @example Your Name - @username */
+      telegramName?: string | null
+      /** @enum {string|null} */
+      telegramStatus?: 'pending' | 'success' | 'error' | 'error-char-limit'
       /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
       userId?: string
       /** @enum {string|null} */
