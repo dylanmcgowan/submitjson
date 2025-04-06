@@ -1,5 +1,15 @@
 # submitjson
 
+## 0.11.0
+
+### Minor Changes
+
+- ded8d5c: Adds support for the Telegram integration.
+
+  New fields `telegramStatus` and `telegramName` were added to the submission response.
+
+  Support for new submission options `telegramNotification`, `slackNotification`, and `discordNotification` were added to the client for better control. Endpoints must be connected to the respective service for these properties to work.
+
 ## 0.10.0
 
 ### Minor Changes
