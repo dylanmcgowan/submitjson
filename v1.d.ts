@@ -152,6 +152,10 @@ export interface components {
       endpointName?: string
       /** @example XxJqpisK8 */
       endpointSlug?: string
+      /** @enum {string|null} */
+      googleSheetsStatus?: 'pending' | 'success' | 'error'
+      /** @example https://docs.google.com/spreadsheets/d/{id}/edit */
+      googleSheetsUrl?: string | null
       /** Format: date-time */
       seenAt?: string | null
       /**
@@ -177,6 +181,8 @@ export interface components {
       telegramName?: string | null
       /** @enum {string|null} */
       telegramStatus?: 'pending' | 'success' | 'error' | 'error-char-limit'
+      /** @example email */
+      uniqueKey?: string
       /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
       userId?: string
       /** @enum {string|null} */
