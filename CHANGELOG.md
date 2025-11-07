@@ -1,5 +1,13 @@
 # submitjson
 
+## 0.12.0
+
+### Minor Changes
+
+- 03bb576: Add support for the Google Sheets integration.
+
+  New fields `googleSheetsStatus`, `googleSheetsUrl`, and `uniqueKey` were added to the submission response.
+
 ## 0.11.0
 
 ### Minor Changes
