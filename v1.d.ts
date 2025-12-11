@@ -4,7 +4,191 @@
  */
 
 export interface paths {
-  '/v1/submit/{endpointSlug}': {
+  '/v1/endpoints': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get all user endpoints
+     * @description Retrieve all endpoints for the authenticated user with optional sorting
+     */
+    get: operations['findUserEndpoints']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1/endpoints/{slug}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get a single endpoint by slug
+     * @description Retrieve a single endpoint with associated integrations and origins
+     */
+    get: operations['findEndpoint']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1/endpoints/{slug}/submissions': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get all submissions for an endpoint
+     * @description Retrieve paginated submissions for an endpoint with filtering options
+     */
+    get: operations['findEndpointSubmissions']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1/projects': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get all user projects
+     * @description Retrieve all projects for the authenticated user with optional sorting
+     */
+    get: operations['findUserProjects']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1/projects/{slug}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get a single project by slug
+     * @description Retrieve a single project with associated endpoints, integrations, and origins
+     */
+    get: operations['findProject']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1/projects/{slug}/endpoints': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get all endpoints for a project
+     * @description Retrieve all endpoints associated with a project
+     */
+    get: operations['findProjectEndpoints']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1/projects/{slug}/submissions': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get all submissions for a project
+     * @description Retrieve paginated submissions for a project with filtering options
+     */
+    get: operations['findProjectSubmissions']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1/submissions': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get user submissions with pagination and filtering
+     * @description Retrieve paginated list of submissions for authenticated user
+     */
+    get: operations['findUserSubmissions']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1/submissions/{id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get a single submission by ID
+     * @description Retrieve a single submission with webhook events
+     */
+    get: operations['findSubmission']
+    put?: never
+    post?: never
+    /**
+     * Delete a submission
+     * @description Delete a submission and decrement endpoint submission count
+     */
+    delete: operations['deleteSubmission']
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1/submit/{slug}': {
     parameters: {
       query?: never
       header?: never
@@ -28,6 +212,277 @@ export interface paths {
 export type webhooks = Record<string, never>
 export interface components {
   schemas: {
+    DiscordWebhook: {
+      /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
+      discordWebhookId?: string
+      /** @example 1234567890123456789 */
+      discordChannelId?: string
+      /** @example #notifications */
+      discordChannelName?: string
+      /** @example My Discord Server */
+      discordGuildName?: string
+    }
+    Endpoint: {
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      endpointId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      projectId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      userId?: string
+      /** @example XxXxXxX */
+      endpointSlug?: string
+      /** @example Contact Form */
+      endpointName?: string
+      /**
+       * @example enabled
+       * @enum {string}
+       */
+      endpointStatus?: 'enabled' | 'disabled'
+      /** @example Main contact form for website */
+      endpointDescription?: string
+      /** @example 150 */
+      submissionCount?: number
+      /** @example 145 */
+      emailCount?: number
+      /**
+       * @example pretty
+       * @enum {string}
+       */
+      endpointFormat?: 'raw' | 'pretty'
+      /** @example true */
+      emailNotificationsEnabled?: boolean
+      /**
+       * Format: email
+       * @example contact@example.com
+       */
+      endpointRecipient?: string
+      /**
+       * @example ping
+       * @enum {string}
+       */
+      endpointSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
+      /** @example New submission from {endpoint} */
+      endpointSubject?: string | null
+      /** @example Your Business Name */
+      endpointFromName?: string | null
+      /** @example true */
+      endpointBranding?: boolean
+      /** @example 5 */
+      blockedSubmissionCount?: number
+      /** @example false */
+      secretKeyRequired?: boolean
+      /** @example website */
+      endpointHoneypot?: string | null
+      /**
+       * @example turnstile
+       * @enum {string}
+       */
+      endpointCaptcha?: 'none' | 'recaptcha' | 'turnstile' | 'hcaptcha'
+      /** @example xxxxxxxxxxxxx */
+      recaptchaSecret?: string | null
+      /** @example xxxxxxxxxxxxx */
+      turnstileSecret?: string | null
+      /** @example xxxxxxxxxxxxx */
+      hcaptchaSecret?: string | null
+      /** Format: date-time */
+      lastSubmission?: string
+      /** @example false */
+      discordNotificationsEnabled?: boolean
+      /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
+      discordWebhookId?: string
+      /** @example #notifications - Your Server */
+      discordChannel?: string
+      /** @example 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms */
+      googleSheetsId?: string
+      /**
+       * Format: uri
+       * @example https://docs.google.com/spreadsheets/d/xxx
+       */
+      googleSheetsUrl?: string
+      /** @example false */
+      googleSheetsEnabled?: boolean
+      /**
+       * Format: email
+       * @example service@example.iam.gserviceaccount.com
+       */
+      googleSheetsAccountEmail?: string
+      /** @example false */
+      slackNotificationsEnabled?: boolean
+      /** @example #general */
+      slackChannel?: string | null
+      /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
+      slackWorkspaceId?: string
+      /** @example -1001234567890 */
+      telegramChatId?: string | null
+      /** @example My Telegram Channel */
+      telegramName?: string | null
+      /** @example false */
+      telegramNotificationsEnabled?: boolean
+      /** Format: date-time */
+      createdAt?: string
+      /**
+       * Format: uri
+       * @example https://hooks.zapier.com/hooks/catch/xxx
+       */
+      zapierHookUrl?: string
+      /** @example 123456 */
+      zapierZapId?: string
+      /** @example 50 */
+      endpointPeriodSubmissionCount?: number
+      /** @example 2 */
+      endpointPeriodBlockedSubmissionCount?: number
+      /** @example 48 */
+      endpointPeriodEmailCount?: number
+      /** @example 1000 */
+      submissionLimit?: number | null
+      /** @example email */
+      uniqueKey?: string | null
+      /** Format: date-time */
+      disableAt?: string | null
+    }
+    Origin: {
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      originId?: string
+      /**
+       * Format: uri
+       * @example https://example.com
+       */
+      originUrl?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      endpointId?: string | null
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      projectId?: string | null
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      userId?: string
+      /** Format: date-time */
+      createdAt?: string
+    }
+    Project: {
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      projectId?: string
+      /** @example My Website Forms */
+      projectName?: string
+      /** @example XxXxXxX */
+      projectSlug?: string
+      /** @example 5 */
+      projectEndpointCount?: number
+      /** @example 1250 */
+      projectSubmissionCount?: number
+      /** @example 42 */
+      projectBlockedSubmissionCount?: number
+      /**
+       * @example enabled
+       * @enum {string}
+       */
+      projectStatus?: 'enabled' | 'disabled'
+      /** Format: date-time */
+      projectLastSubmission?: string | null
+      /** @example true */
+      projectEmailNotificationsEnabled?: boolean
+      /**
+       * Format: email
+       * @example yo@yoerson.com
+       */
+      projectRecipient?: string
+      /**
+       * @example pretty
+       * @enum {string}
+       */
+      projectFormat?: 'raw' | 'pretty'
+      /**
+       * @example ping
+       * @enum {string}
+       */
+      projectSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
+      /** @example New submission from {endpoint} */
+      projectSubject?: string | null
+      /** @example Your Business Name */
+      projectFromName?: string | null
+      /** @example true */
+      projectBranding?: boolean
+      /** @example website */
+      projectHoneypot?: string
+      /**
+       * @example turnstile
+       * @enum {string}
+       */
+      projectCaptcha?: 'none' | 'recaptcha' | 'turnstile' | 'hcaptcha'
+      /** @example xxxxxxxxxxxxx */
+      projectRecaptchaSecret?: string | null
+      /** @example xxxxxxxxxxxxx */
+      projectTurnstileSecret?: string | null
+      /** @example xxxxxxxxxxxxx */
+      projectHcaptchaSecret?: string | null
+      /** @example false */
+      projectDiscordNotificationsEnabled?: boolean
+      /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
+      projectDiscordWebhookId?: string
+      /** @example #notifications - Your Server */
+      projectDiscordChannel?: string
+      /** @example false */
+      projectSlackNotificationsEnabled?: boolean
+      /** @example #notifications */
+      projectSlackChannel?: string | null
+      /** @example 150 */
+      projectPeriodSubmissionCount?: number
+      /** @example 5 */
+      projectPeriodBlockedSubmissionCount?: number
+      /** @example 145 */
+      projectPeriodEmailCount?: number
+      /** Format: date-time */
+      projectDisableAt?: string | null
+      /** @example 1000 */
+      projectSubmissionLimit?: number | null
+      /** @example email */
+      projectUniqueKey?: string | null
+      /** @example false */
+      projectSecretKeyRequired?: boolean
+      /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
+      slackWorkspaceId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      userId?: string
+      /** Format: date-time */
+      createdAt?: string
+    }
+    SlackWorkspace: {
+      /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
+      slackWorkspaceId?: string
+      /** @example My Company Workspace */
+      slackWorkspaceName?: string
+      channels?: {
+        /** @example C1234567890 */
+        channelId?: string
+        /** @example #general */
+        channelName?: string
+      }[]
+    }
     SubmissionInput: {
       /**
        * @description The data to submit, must be a valid JSON object
@@ -190,6 +645,38 @@ export interface components {
       /** @enum {string|null} */
       zapierStatus?: 'pending' | 'success' | 'error'
     }
+    Webhook: {
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      webhookId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      userId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      endpointId?: string
+      /**
+       * Format: uri
+       * @example https://api.example.com/webhook
+       */
+      webhookUrl?: string
+      webhookHeaders?: {
+        /** @example Authorization */
+        key?: string
+        /** @example Bearer token123 */
+        value?: string
+      }[]
+      /** Format: date-time */
+      lastUsed?: string
+      /** Format: date-time */
+      createdAt?: string
+    }
     ErrorResponse: {
       /** @example 🙈 */
       message?: string
@@ -198,20 +685,500 @@ export interface components {
     }
   }
   responses: never
-  parameters: never
+  parameters: {
+    /** @description Page number for pagination */
+    PageParam: number
+    /** @description Number of items per page */
+    LimitParam: number
+    /** @description Sort order */
+    OrderParam: 'asc' | 'desc'
+    /** @description Filter by time period */
+    PeriodParam: 'day' | 'week' | 'month' | '3months' | '6months' | 'year' | 'all'
+    /** @description Search submissions by UUID or text content */
+    SearchParam: string
+    /** @description Filter by read status */
+    StatusParam: 'all' | 'new' | 'seen'
+    /** @description Filter by project slug */
+    ProjectParam: string
+  }
   requestBodies: never
   headers: never
   pathItems: never
 }
 export type $defs = Record<string, never>
 export interface operations {
+  findUserEndpoints: {
+    parameters: {
+      query?: {
+        /** @description Sort endpoints by criteria */
+        sort?: 'name' | 'new' | 'old' | 'submissions' | 'activity'
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns array of endpoints */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Endpoint'][]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
+  findEndpoint: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description Endpoint slug */
+        slug: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns the endpoint with related data */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': {
+            endpoint?: components['schemas']['Endpoint']
+            webhooks?: components['schemas']['Webhook'][]
+            slackWorkspaces?: components['schemas']['SlackWorkspace'][]
+            discordWebhooks?: components['schemas']['DiscordWebhook'][]
+            origins?: components['schemas']['Origin'][]
+          }
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Endpoint not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
+  findEndpointSubmissions: {
+    parameters: {
+      query?: {
+        /** @description Page number for pagination */
+        page?: components['parameters']['PageParam']
+        /** @description Sort order */
+        order?: components['parameters']['OrderParam']
+        /** @description Filter by time period */
+        period?: components['parameters']['PeriodParam']
+        /** @description Search submissions by UUID or text content */
+        search?: components['parameters']['SearchParam']
+        /** @description Filter by read status */
+        status?: components['parameters']['StatusParam']
+      }
+      header?: never
+      path: {
+        /** @description Endpoint slug */
+        slug: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns paginated submissions */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': {
+            submissions?: components['schemas']['Submission'][]
+            submissionCount?: number
+            totalPages?: number
+            currentPage?: number
+          }
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Endpoint not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Invalid query parameters */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
+  findUserProjects: {
+    parameters: {
+      query?: {
+        /** @description Sort projects by criteria */
+        sort?: 'name' | 'new' | 'old' | 'submissions' | 'activity'
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns array of projects */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Project'][]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
+  findProject: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description Project slug */
+        slug: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns the project with related data */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': {
+            project?: components['schemas']['Project']
+            endpoints?: components['schemas']['Endpoint'][]
+            slackWorkspaces?: components['schemas']['SlackWorkspace'][]
+            discordWebhooks?: components['schemas']['DiscordWebhook'][]
+            origins?: components['schemas']['Origin'][]
+          }
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Project not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
+  findProjectEndpoints: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description Project slug */
+        slug: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns array of endpoints */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Endpoint'][]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Project not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
+  findProjectSubmissions: {
+    parameters: {
+      query?: {
+        /** @description Page number for pagination */
+        page?: components['parameters']['PageParam']
+        /** @description Sort order */
+        order?: components['parameters']['OrderParam']
+        /** @description Filter by time period */
+        period?: components['parameters']['PeriodParam']
+        /** @description Search submissions by UUID or text content */
+        search?: components['parameters']['SearchParam']
+        /** @description Filter by read status */
+        status?: components['parameters']['StatusParam']
+      }
+      header?: never
+      path: {
+        /** @description Project slug */
+        slug: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns paginated submissions */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': {
+            submissions?: components['schemas']['Submission'][]
+            submissionCount?: number
+            totalPages?: number
+            currentPage?: number
+          }
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Project not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Invalid query parameters */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
+  findUserSubmissions: {
+    parameters: {
+      query?: {
+        /** @description Page number for pagination */
+        page?: components['parameters']['PageParam']
+        /** @description Sort order */
+        order?: components['parameters']['OrderParam']
+        /** @description Filter by time period */
+        period?: components['parameters']['PeriodParam']
+        /** @description Search submissions by UUID or text content */
+        search?: components['parameters']['SearchParam']
+        /** @description Filter by read status */
+        status?: components['parameters']['StatusParam']
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns paginated submissions */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': {
+            submissions?: components['schemas']['Submission'][]
+            submissionCount?: number
+            totalPages?: number
+            currentPage?: number
+          }
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Invalid query parameters */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
+  findSubmission: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description Submission ID */
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns the submission */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Submission']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Submission not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
+  deleteSubmission: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description Submission ID */
+        id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Submission deleted successfully */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Submission not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
   submit: {
     parameters: {
       query?: never
       header?: never
       path: {
-        /** @description The slug of the endpoint */
-        endpointSlug: string
+        /** @description The slug of the Endpoint */
+        slug: string
       }
       cookie?: never
     }

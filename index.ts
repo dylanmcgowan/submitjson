@@ -1,12 +1,13 @@
 import createClient from 'openapi-fetch'
 import type { components, paths } from './v1.js'
 
-const { POST } = createClient<paths>({
+const { POST, GET, DELETE } = createClient<paths>({
   baseUrl: 'https://api.submitjson.com/',
 })
 
 interface SubmitJSONConfig {
   apiKey: string
+  secretKey?: string
   endpoint?: string
   options?: SubmitOptions
 }
@@ -21,18 +22,32 @@ interface SubmitOptions {
   submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
   recaptchaToken?: string
   turnstileToken?: string
+  hcaptchaToken?: string
+  discordNotification?: boolean
+  slackNotification?: boolean
+  telegramNotification?: boolean
+}
+
+interface SubmissionsQuery {
+  page?: number
+  order?: 'asc' | 'desc'
+  period?: 'day' | 'week' | 'month' | '3months' | '6months' | 'year' | 'all'
+  search?: string
+  status?: 'all' | 'new' | 'seen'
 }
 
 type RequestOptions = components['schemas']['SubmissionInput']['options']
-type RequestBody = paths['/v1/submit/{endpointSlug}']['post']['requestBody']['content']['application/json']
+type RequestBody = paths['/v1/submit/{slug}']['post']['requestBody']['content']['application/json']
 
 export default class SubmitJSON {
   private apiKey: string
+  private secretKey?: string
   private endpointSlug: string | undefined
   private options: SubmitOptions | undefined
 
   constructor(config: SubmitJSONConfig) {
     this.apiKey = config.apiKey
+    this.secretKey = config.secretKey
     this.endpointSlug = config.endpoint
     this.options = config.options
   }
@@ -40,6 +55,7 @@ export default class SubmitJSON {
   private getHeaders() {
     return {
       'X-API-Key': this.apiKey,
+      ...(this.secretKey && { 'X-Secret-Key': this.secretKey }),
     }
   }
 
@@ -107,10 +123,10 @@ export default class SubmitJSON {
       }
 
       // make the submission
-      const { data: submission, error } = await POST('/v1/submit/{endpointSlug}', {
+      const { data: submission, error } = await POST('/v1/submit/{slug}', {
         headers: this.getHeaders(),
         params: {
-          path: { endpointSlug },
+          path: { slug: endpointSlug },
         },
         body,
       })
@@ -119,6 +135,195 @@ export default class SubmitJSON {
         throw new Error(error.message)
 
       return submission
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  // ENDPOINTS
+  async getEndpoints(query?: { sort?: 'name' | 'new' | 'old' | 'submissions' | 'activity' }) {
+    try {
+      const { data, error } = await GET('/v1/endpoints', {
+        headers: this.getHeaders(),
+        params: { query },
+      })
+
+      if (error)
+        throw new Error(error.message)
+
+      return data
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getEndpoint(slug: string) {
+    try {
+      const { data, error } = await GET('/v1/endpoints/{slug}', {
+        headers: this.getHeaders(),
+        params: {
+          path: { slug },
+        },
+      })
+
+      if (error)
+        throw new Error(error.message)
+
+      return data
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getEndpointSubmissions(slug: string, query?: SubmissionsQuery) {
+    try {
+      const { data, error } = await GET('/v1/endpoints/{slug}/submissions', {
+        headers: this.getHeaders(),
+        params: {
+          path: { slug },
+          query,
+        },
+      })
+
+      if (error)
+        throw new Error(error.message)
+
+      return data
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  // PROJECTS
+  async getProjects(query?: { sort?: 'name' | 'new' | 'old' | 'submissions' | 'activity' }) {
+    try {
+      const { data, error } = await GET('/v1/projects', {
+        headers: this.getHeaders(),
+        params: { query },
+      })
+
+      if (error)
+        throw new Error(error.message)
+
+      return data
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getProject(slug: string) {
+    try {
+      const { data, error } = await GET('/v1/projects/{slug}', {
+        headers: this.getHeaders(),
+        params: {
+          path: { slug },
+        },
+      })
+
+      if (error)
+        throw new Error(error.message)
+
+      return data
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getProjectEndpoints(slug: string) {
+    try {
+      const { data, error } = await GET('/v1/projects/{slug}/endpoints', {
+        headers: this.getHeaders(),
+        params: {
+          path: { slug },
+        },
+      })
+
+      if (error)
+        throw new Error(error.message)
+
+      return data
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getProjectSubmissions(slug: string, query?: SubmissionsQuery) {
+    try {
+      const { data, error } = await GET('/v1/projects/{slug}/submissions', {
+        headers: this.getHeaders(),
+        params: {
+          path: { slug },
+          query,
+        },
+      })
+
+      if (error)
+        throw new Error(error.message)
+
+      return data
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  // SUBMISSIONS
+  async getSubmissions(query?: SubmissionsQuery) {
+    try {
+      const { data, error } = await GET('/v1/submissions', {
+        headers: this.getHeaders(),
+        params: { query },
+      })
+
+      if (error)
+        throw new Error(error.message)
+
+      return data
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getSubmission(id: string) {
+    try {
+      const { data, error } = await GET('/v1/submissions/{id}', {
+        headers: this.getHeaders(),
+        params: {
+          path: { id },
+        },
+      })
+
+      if (error)
+        throw new Error(error.message)
+
+      return data
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
+  async deleteSubmission(id: string) {
+    try {
+      const { error } = await DELETE('/v1/submissions/{id}', {
+        headers: this.getHeaders(),
+        params: {
+          path: { id },
+        },
+      })
+
+      if (error)
+        throw new Error(error.message)
+
+      return { success: true }
     }
     catch (error) {
       console.error(error)
