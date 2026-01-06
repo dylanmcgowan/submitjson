@@ -24,10 +24,10 @@
     "openapi-fetch": "^0.8.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^1.2.1",
+    "@antfu/eslint-config": "^6.7.3",
     "@changesets/cli": "^2.27.1",
     "@types/node": "^20.11.7",
-    "eslint": "^8.56.0",
+    "eslint": "^9.39.2",
     "openapi-typescript": "7.0.0-next.5",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"

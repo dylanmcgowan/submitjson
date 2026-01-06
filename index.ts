@@ -1,5 +1,5 @@
-import createClient from 'openapi-fetch'
 import type { components, paths } from './v1.js'
+import createClient from 'openapi-fetch'
 
 const { POST, GET, DELETE } = createClient<paths>({
   baseUrl: 'https://api.submitjson.com/',

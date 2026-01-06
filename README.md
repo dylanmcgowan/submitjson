@@ -142,7 +142,7 @@ console.log('Submission', data)
 - **Details**
 
   POST your data to an endpoint and get notified in real time.
-  
+
   `submit()` takes three arguments:
     1. The data (must be a valid JSON object, JSON string, or FormData)
     2. Optional configuration to override the endpoint's default settings. If this argument is a `string` it is treated as the `endpoint` for submitting data

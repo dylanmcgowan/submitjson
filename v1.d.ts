@@ -212,6 +212,55 @@ export interface paths {
 export type webhooks = Record<string, never>
 export interface components {
   schemas: {
+    ActivityLog: {
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      logId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      userId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      submissionId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      endpointId?: string
+      /** @example discord_sent */
+      eventType?: string
+      /**
+       * @example discord
+       * @enum {string}
+       */
+      eventCategory?: 'submission' | 'email' | 'webhook' | 'telegram' | 'slack' | 'discord' | 'google_sheets' | 'zapier' | 'integration'
+      /**
+       * @example success
+       * @enum {string}
+       */
+      status?: 'pending' | 'success' | 'error' | 'warning' | 'info'
+      /** @example Discord notification sent successfully */
+      message?: string
+      /**
+       * @example {
+       *       "channel": "#notifications",
+       *       "messageId": "1234567890"
+       *     }
+       */
+      metadata?: {
+        [key: string]: unknown
+      }
+      /** @example null */
+      errorDetails?: string
+      /** Format: date-time */
+      createdAt?: string
+    }
     DiscordWebhook: {
       /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
       discordWebhookId?: string
@@ -645,6 +694,10 @@ export interface components {
       /** @enum {string|null} */
       zapierStatus?: 'pending' | 'success' | 'error'
     }
+    SubmissionWithLogs: components['schemas']['Submission'] & {
+      webhookEvents?: components['schemas']['WebhookEvent'][]
+      logs?: components['schemas']['ActivityLog'][]
+    }
     Webhook: {
       /**
        * Format: uuid
@@ -674,6 +727,42 @@ export interface components {
       }[]
       /** Format: date-time */
       lastUsed?: string
+      /** Format: date-time */
+      createdAt?: string
+    }
+    WebhookEvent: {
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      webhookEventId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      webhookId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      userId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      endpointId?: string
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      submissionId?: string
+      /** @example 200 */
+      responseStatus?: number
+      /**
+       * Format: uri
+       * @example https://api.example.com/webhook
+       */
+      requestUrl?: string
       /** Format: date-time */
       createdAt?: string
     }
@@ -1110,7 +1199,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          'application/json': components['schemas']['Submission']
+          'application/json': components['schemas']['SubmissionWithLogs']
         }
       }
       /** @description Unauthorized */
