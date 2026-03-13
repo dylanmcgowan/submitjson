@@ -1,5 +1,11 @@
 # submitjson
 
+## 0.15.0
+
+### Minor Changes
+
+- f2f7e1e: Custom Submission Templates
+
 ## 0.14.0
 
 ### Minor Changes
