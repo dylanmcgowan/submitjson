@@ -76,7 +76,8 @@ console.log('Submission', data)
     emailBranding?: boolean
     emailSubject?: string
     emailFromName?: string
-    submissionFormat?: 'pretty' | 'raw'
+    submissionFormat?: 'pretty' | 'raw' | 'custom'
+    submissionTemplate?: string
     submissionSound?: 'none' | 'beep' | 'blip' | 'block' | 'coin' | 'ding' | 'dink' | 'honk' | 'jump' | 'ping' | 'pong' | 'snare'
     recaptchaToken?: string
     turnstileToken?: string
@@ -563,4 +564,4 @@ console.log('Submission', data)
 
 ## License
 
-MIT License © 2025 [Submit JSON](https://www.submitjson.com)
+MIT License © 2026 [Submit JSON](https://www.submitjson.com)

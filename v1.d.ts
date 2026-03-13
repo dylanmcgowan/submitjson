@@ -306,7 +306,12 @@ export interface components {
        * @example pretty
        * @enum {string}
        */
-      endpointFormat?: 'raw' | 'pretty'
+      endpointFormat?: 'raw' | 'pretty' | 'custom'
+      /**
+       * @description Supports plain placeholders and safe HTML tags: b, strong, i, em, u, ul, ol, li, p, br.
+       * @example <p><strong>New lead</strong></p><p>Name: {{name}}</p><ul><li>Email: {{email}}</li></ul>
+       */
+      endpointTemplate?: string | null
       /** @example true */
       emailNotificationsEnabled?: boolean
       /**
@@ -461,7 +466,12 @@ export interface components {
        * @example pretty
        * @enum {string}
        */
-      projectFormat?: 'raw' | 'pretty'
+      projectFormat?: 'raw' | 'pretty' | 'custom'
+      /**
+       * @description Supports plain placeholders and safe HTML tags: b, strong, i, em, u, ul, ol, li, p, br.
+       * @example <p><em>Submission from {{data.name}}</em></p><ol><li>{{data.email}}</li></ol>
+       */
+      projectTemplate?: string | null
       /**
        * @example ping
        * @enum {string}
@@ -578,11 +588,16 @@ export interface components {
          */
         emailBranding?: boolean
         /**
-         * @description Set the format of the submission to raw JSON or pretty
+         * @description Set the format of the submission to raw JSON, pretty, or custom
          * @example raw
          * @enum {string}
          */
-        submissionFormat?: 'raw' | 'pretty'
+        submissionFormat?: 'raw' | 'pretty' | 'custom'
+        /**
+         * @description Supports simple {{path.to.value}} placeholders and safe HTML tags (b, strong, i, em, u, ul, ol, li, p, br). If provided, it takes precedence over endpoint defaults.
+         * @example <p><strong>Lead</strong>: {{name}}</p><p>Email: {{email}}</p><ul><li>{{data.message}}</li></ul>
+         */
+        submissionTemplate?: string
         /**
          * @description Play a sound on submitjson.com upon submission
          * @example ping
@@ -636,7 +651,7 @@ export interface components {
       /** @example #notifications - Your Server */
       discordChannel?: string | null
       /** @enum {string|null} */
-      discordStatus?: 'pending' | 'success' | 'error' | 'error-char-limit'
+      discordStatus?: 'pending' | 'success' | 'error' | 'error-char-limit' | null
       /** @example true */
       emailBranding?: boolean
       /** @example false */
@@ -657,7 +672,7 @@ export interface components {
       /** @example XxJqpisK8 */
       endpointSlug?: string
       /** @enum {string|null} */
-      googleSheetsStatus?: 'pending' | 'success' | 'error'
+      googleSheetsStatus?: 'pending' | 'success' | 'error' | null
       /** @example https://docs.google.com/spreadsheets/d/{id}/edit */
       googleSheetsUrl?: string | null
       /** Format: date-time */
@@ -666,7 +681,7 @@ export interface components {
        * @example true
        * @enum {string|null}
        */
-      securityCaptcha?: 'hcaptcha' | 'recaptcha' | 'turnstile'
+      securityCaptcha?: 'hcaptcha' | 'recaptcha' | 'turnstile' | null
       /** @example true */
       securityCors?: boolean
       /** @example false */
@@ -674,9 +689,11 @@ export interface components {
       /** @example null */
       slackChannel?: string
       /** @enum {string|null} */
-      slackStatus?: 'pending' | 'success' | 'error'
+      slackStatus?: 'pending' | 'success' | 'error' | null
       /** @enum {string} */
-      submissionFormat?: 'raw' | 'pretty'
+      submissionFormat?: 'raw' | 'pretty' | 'custom'
+      /** @example <p><strong>Lead</strong>: {{name}}</p><p>Email: {{email}}</p> */
+      submissionTemplate?: string | null
       /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
       submissionId?: string
       /** @example ping */
@@ -684,15 +701,15 @@ export interface components {
       /** @example Your Name - @username */
       telegramName?: string | null
       /** @enum {string|null} */
-      telegramStatus?: 'pending' | 'success' | 'error' | 'error-char-limit'
+      telegramStatus?: 'pending' | 'success' | 'error' | 'error-char-limit' | null
       /** @example email */
       uniqueKey?: string
       /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
       userId?: string
       /** @enum {string|null} */
-      webhookStatus?: 'success' | 'partial-success' | 'error'
+      webhookStatus?: 'success' | 'partial-success' | 'error' | null
       /** @enum {string|null} */
-      zapierStatus?: 'pending' | 'success' | 'error'
+      zapierStatus?: 'pending' | 'success' | 'error' | null
     }
     SubmissionWithLogs: components['schemas']['Submission'] & {
       webhookEvents?: components['schemas']['WebhookEvent'][]
