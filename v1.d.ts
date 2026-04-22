@@ -312,13 +312,20 @@ export interface components {
        * @example <p><strong>New lead</strong></p><p>Name: {{name}}</p><ul><li>Email: {{email}}</li></ul>
        */
       endpointTemplate?: string | null
+      /**
+       * Format: uri
+       * @example https://acme.com/thank-you
+       */
+      endpointFrontendUrl?: string | null
       /** @example true */
       emailNotificationsEnabled?: boolean
       /**
        * Format: email
        * @example contact@example.com
        */
-      endpointRecipient?: string
+      endpointTo?: string
+      /** @example team@example.com,alerts@example.com */
+      endpointCc?: string | null
       /**
        * @example ping
        * @enum {string}
@@ -328,6 +335,18 @@ export interface components {
       endpointSubject?: string | null
       /** @example Your Business Name */
       endpointFromName?: string | null
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      endpointSmtpServerId?: string | null
+      /**
+       * @example system
+       * @enum {string}
+       */
+      endpointEmailDeliveryMode?: 'system' | 'smtp'
+      /** @description Endpoint-level email auto-responder configuration. */
+      endpointAutoResponder?: (components['schemas']['AutoResponderConfig'] | null) & components['schemas']['AutoResponderConfig']
       /** @example true */
       endpointBranding?: boolean
       /** @example 5 */
@@ -461,7 +480,9 @@ export interface components {
        * Format: email
        * @example yo@yoerson.com
        */
-      projectRecipient?: string
+      projectTo?: string
+      /** @example team@example.com,alerts@example.com */
+      projectCc?: string | null
       /**
        * @example pretty
        * @enum {string}
@@ -481,6 +502,18 @@ export interface components {
       projectSubject?: string | null
       /** @example Your Business Name */
       projectFromName?: string | null
+      /**
+       * Format: uuid
+       * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+       */
+      projectSmtpServerId?: string | null
+      /**
+       * @example system
+       * @enum {string}
+       */
+      projectEmailDeliveryMode?: 'system' | 'smtp'
+      /** @description Project-level default email auto-responder configuration. */
+      projectAutoResponder?: (components['schemas']['AutoResponderConfig'] | null) & components['schemas']['AutoResponderConfig']
       /** @example true */
       projectBranding?: boolean
       /** @example website */
@@ -542,6 +575,51 @@ export interface components {
         channelName?: string
       }[]
     }
+    AutoResponderConfig: {
+      /** @example true */
+      enabled?: boolean
+      /**
+       * @description Dot-path into submission data used as recipient.
+       * @example email
+       */
+      toField?: string
+      /** @example Thanks for contacting us, {{name}} */
+      subject?: string
+      /** @example Hi {{name}}, we received your message and will reply soon. */
+      template?: string
+      /** @example Acme Support */
+      fromName?: string | null
+      /**
+       * Format: email
+       * @example support@acme.com
+       */
+      replyTo?: string
+    }
+    SubmissionEmailAutoResponder: {
+      /** @enum {string} */
+      status?: 'disabled' | 'pending' | 'sent' | 'send-failed' | 'skipped-missing-field' | 'skipped-invalid-email' | 'skipped-smtp-unavailable'
+      /** @example email */
+      toField?: string
+      /** @example Thanks for contacting us, {{name}} */
+      subject?: string
+      /** @example Hi {{name}}, we received your message and will reply soon. */
+      template?: string
+      /** @example Acme Support */
+      fromName?: string | null
+      /**
+       * Format: email
+       * @example support@acme.com
+       */
+      replyTo?: string
+      /**
+       * Format: email
+       * @example customer@example.com
+       */
+      to?: string
+      /** Format: date-time */
+      sentAt?: string
+      error?: string
+    }
     SubmissionInput: {
       /**
        * @description The data to submit, must be a valid JSON object
@@ -568,25 +646,43 @@ export interface components {
          */
         emailTo?: string
         /**
+         * @description Optional comma-separated CC recipients. Each address must be a verified linked email on your account.
+         * @example team@example.com,ops@example.com
+         */
+        emailCc?: string
+        /**
          * @description Set a ReplyTo for the email notification
          * @example yo@yoerson.com
          */
         emailReplyTo?: string
         /**
-         * @description Change the default email notification subject. Available on Growth & Pro plans.
+         * @description Change the default email notification subject. Available on Pro & Scale plans.
          * @example My custom email subject
          */
         emailSubject?: string
         /**
-         * @description Change the default email notification from name. Available on Growth & Pro plans.
+         * @description Change the default email notification from name. Available on Pro & Scale plans.
          * @example Your Business
          */
         emailFromName?: string
         /**
-         * @description Remove Submit JSON branding from the email notification. Available on Growth & Pro plans.
+         * @description Remove Submit JSON branding from the email notification. Available on Pro & Scale plans.
          * @example true
          */
         emailBranding?: boolean
+        /** @description Override endpoint auto-responder content for this submission. Available when using SMTP. */
+        emailAutoResponder?: {
+          /**
+           * @description Override auto-responder subject for this submission.
+           * @example Thanks for reaching out, {{name}}
+           */
+          subject?: string
+          /**
+           * @description Override auto-responder template for this submission. Supports safe HTML tags and {{variables}}.
+           * @example <p>Hi {{name}},</p><p>Thanks for contacting us.</p>
+           */
+          template?: string
+        }
         /**
          * @description Set the format of the submission to raw JSON, pretty, or custom
          * @example raw
@@ -594,7 +690,7 @@ export interface components {
          */
         submissionFormat?: 'raw' | 'pretty' | 'custom'
         /**
-         * @description Supports simple {{path.to.value}} placeholders and safe HTML tags (b, strong, i, em, u, ul, ol, li, p, br). If provided, it takes precedence over endpoint defaults.
+         * @description Supports {{path.to.value}} placeholders, {{#if}}/{{else if}}/{{else}}/{{/if}}, {{#unless}} blocks, and safe HTML tags (b, strong, i, em, u, ul, ol, li, p, br, a). If provided, it takes precedence over endpoint defaults.
          * @example <p><strong>Lead</strong>: {{name}}</p><p>Email: {{email}}</p><ul><li>{{data.message}}</li></ul>
          */
         submissionTemplate?: string
@@ -620,17 +716,17 @@ export interface components {
          */
         hcaptchaToken?: string
         /**
-         * @description Send a Discord notification. Endpoint must be integrated with Discord. Available on Growth & Pro plans.
+         * @description Send a Discord notification. Endpoint must be integrated with Discord. Available on Pro & Scale plans.
          * @example false
          */
         discordNotification?: boolean
         /**
-         * @description Send a Slack notification. Endpoint must be integrated with Slack. Available on Growth & Pro plans.
+         * @description Send a Slack notification. Endpoint must be integrated with Slack. Available on Pro & Scale plans.
          * @example false
          */
         slackNotification?: boolean
         /**
-         * @description Send a Telegram notification. Endpoint must be connected to Telegram. Available on Growth & Pro plans.
+         * @description Send a Telegram notification. Endpoint must be connected to Telegram. Available on Pro & Scale plans.
          * @example false
          */
         telegramNotification?: boolean
@@ -658,11 +754,22 @@ export interface components {
       emailNotification?: boolean
       /** @example yo@yoerson.com */
       emailTo?: string | null
+      /** @example team@example.com,ops@example.com */
+      emailCc?: string | null
       /** @example yo@yoerson.com */
       emailReplyTo?: string | null
-      emailStatus?: string | null
+      /** @enum {string|null} */
+      emailStatus?: 'pending' | 'delivered' | 'sent' | 'opened' | 'bounced' | 'limit-reached' | 'invalid-recipient' | 'spam-complaint' | 'delivery-delayed' | 'send-failed' | 'error' | null
       /** @example Endpoint name {xxxyyzz} */
       emailSubject?: string
+      /**
+       * @description Actual email delivery path used for this submission. Null when no email send was attempted.
+       * @example smtp
+       * @enum {string|null}
+       */
+      emailDeliveryMode?: 'system' | 'smtp' | null
+      /** @description Snapshot and execution status for the email auto-responder. Null when auto-responder is disabled. */
+      emailAutoResponder?: (components['schemas']['SubmissionEmailAutoResponder'] | null) & components['schemas']['SubmissionEmailAutoResponder']
       /** @example Your client's business */
       emailFromName?: string
       /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
@@ -694,8 +801,15 @@ export interface components {
       submissionFormat?: 'raw' | 'pretty' | 'custom'
       /** @example <p><strong>Lead</strong>: {{name}}</p><p>Email: {{email}}</p> */
       submissionTemplate?: string | null
+      /** @example <p><strong>Lead</strong>: Alice</p><p>Email: alice@example.com</p> */
+      submissionTemplateRendered?: string | null
       /** @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx */
       submissionId?: string
+      /**
+       * Format: uri
+       * @example https://www.yourwebsite.com
+       */
+      submissionOrigin?: string | null
       /** @example ping */
       submissionSound?: string
       /** @example Your Name - @username */

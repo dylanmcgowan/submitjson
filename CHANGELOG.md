@@ -97,7 +97,7 @@
 
   A new property `emailFromName` was added to the submission options.
 
-  This functionality is available on Growth and Pro plans.
+  This functionality is available on Pro and Scale plans.
 
 ## 0.9.0
 
